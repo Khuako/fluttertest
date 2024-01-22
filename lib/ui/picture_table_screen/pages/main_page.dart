@@ -63,7 +63,6 @@ class _MainPageState extends State<MainPage> {
         physics: const NeverScrollableScrollPhysics(),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
-
           crossAxisSpacing: 8.0,
           mainAxisSpacing: 8.0,
         ),
@@ -76,17 +75,26 @@ class _MainPageState extends State<MainPage> {
               onTap: () {
                 showAppDialog(
                   context: context,
-
-                  child: Scaffold( appBar: AppBar(
-                    backgroundColor: Colors.black45,
-                    leading: IconButton(
-
-                      icon: Icon(Icons.arrow_back,color: Colors.white38,),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
+                  child: Scaffold(
+                    appBar: AppBar(
+                      backgroundColor: Colors.black45,
+                      leading: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back,
+                          color: Colors.white38,
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
                     ),
-                  ),body: PhotoView(imageProvider: CachedNetworkImageProvider(url),)),
+                    body: PhotoView(
+                      imageProvider: CachedNetworkImageProvider(
+                        findOptimalImage(pictures[index].variants ?? [],
+                            MediaQuery.of(context).size.width),
+                      ),
+                    ),
+                  ),
                 );
               },
               child: SizedBox(
